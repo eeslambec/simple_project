@@ -30,7 +30,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        if (request.getServletPath().startsWith("/api/v1/user")){
+        if (request.getServletPath().startsWith("/api/v1/user/auth")){
             filterChain.doFilter(request,response);
             return;
         }
@@ -40,7 +40,7 @@ public class JwtTokenFilter extends OncePerRequestFilter {
             if (jwtTokenProvider.isValid(token)) {
                 Claims claims = jwtTokenProvider.parseAllClaims(token);
                 if (claims.getSubject() != null) {
-                    User user = userService.getById(Long.valueOf(claims.getSubject()));
+                    User user = userService.getByUsername(claims.getSubject());
                     if (user != null){
                         SecurityContextHolder.getContext().setAuthentication(new UsernamePasswordAuthenticationToken(
                                 user.getId(),

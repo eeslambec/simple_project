@@ -12,11 +12,11 @@ import uz.tiue.project.service.UserService;
 public class UserController {
     private final UserService userService;
 
-    @PostMapping("/sign-up")
+    @PostMapping("/auth/sign-up")
     public ResponseEntity<?> signUp(@RequestBody UserCRUDDto userCRUDDto) {
         return ResponseEntity.ok(userService.signUp(userCRUDDto));
     }
-    @PostMapping("/sign-in")
+    @PostMapping("/auth/sign-in")
     public ResponseEntity<?> signIn(@RequestBody UserCRUDDto userCRUDDto) {
         return ResponseEntity.ok(userService.signIn(userCRUDDto));
     }

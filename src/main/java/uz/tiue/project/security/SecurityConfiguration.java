@@ -29,7 +29,7 @@ public class SecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenFilter jwtTokenFilter) {
         http.csrf(AbstractHttpConfigurer::disable);
         http.authorizeHttpRequests(registry ->
-                registry.requestMatchers("/api/v1/user/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                registry.requestMatchers("/api/v1/user/auth/**","/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
         );
         http.addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class);
